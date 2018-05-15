@@ -2,7 +2,7 @@
 Write a module docstring here
 """
 
-__author__ = "Your Name"
+__author__ = "Jeff Beck"
 
 
 def pacman(input_file):
