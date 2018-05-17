@@ -1,8 +1,8 @@
 """
-Write a module docstring here
+This program is for the C3IoT FDS technical challenge.
 """
 
-__author__ = "Your Name"
+__author__ = "Jeff Beck"
 
 
 def pacman(input_file):
