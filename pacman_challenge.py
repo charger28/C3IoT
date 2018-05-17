@@ -12,9 +12,6 @@ from pathlib import Path
 #Set the logging properties.
 logging.basicConfig(filename="test.log",level=logging.DEBUG)
 
-#Read the file name from the command prompt.
-input_file = sys.argv[1]
-
 
 #Read the input file and store the corresponding variables.
 def get_input_values(file_name):
@@ -59,7 +56,7 @@ def get_input_values(file_name):
 
 
 #Calculate the "proposed movement" using current position and cardinal movement.
-def calc_Prop_Movement(curr_x,curr_y,prop_mov):
+def calc_prop_movement(curr_x,curr_y,prop_mov):
     #Create "proposed movement" location variables.
     prop_x = curr_x
     prop_y = curr_y
@@ -86,14 +83,14 @@ def calc_Prop_Movement(curr_x,curr_y,prop_mov):
 
 #Determine if the proposed move is valid.  The function will check for interior walls and boundaries.
 #If valid, return true.  If not valid, return false.
-def isMoveValid(input_dict,prop_x,prop_y):
-    logging.debug("(isMoveValid) Board X dimension is: %s" , {input_dict["board_x_dim"]})
-    logging.debug("(isMoveValid) - Proposed X: %s" , {prop_x})
-    logging.debug("(isMoveValid) - Proposed Y: %s" , {prop_y})
+def is_move_valid(input_dict,prop_x,prop_y):
+    logging.debug("(is_move_valid) Board X dimension is: %s" , {input_dict["board_x_dim"]})
+    logging.debug("(is_move_valid) - Proposed X: %s" , {prop_x})
+    logging.debug("(is_move_valid) - Proposed Y: %s" , {prop_y})
     
     #Create proposed location string variable that will be used to compare against the list of interior wall locations.
     prop_loc_str = str(prop_x) + ":" + str(prop_y)
-    logging.debug ("(isMoveValid) Proposed location string variable: %s" , {prop_loc_str})
+    logging.debug ("(is_move_valid) Proposed location string variable: %s" , {prop_loc_str})
     
     #Check to see if the proposed movement hits an interior wall.
     if any (prop_loc_str in l for l in input_dict["walls"]):
@@ -164,8 +161,8 @@ def pacman(input_file):
         movement_lst = input_variables["movements"]
         for movement in movement_lst:
             #Call function to determine if the move is valid.
-            prop_x,prop_y = calc_Prop_Movement(curr_x_pos,curr_y_pos,movement)
-            if isMoveValid(input_variables,prop_x,prop_y):
+            prop_x,prop_y = calc_prop_movement(curr_x_pos,curr_y_pos,movement)
+            if is_move_valid(input_variables,prop_x,prop_y):
                 logging.debug("Move is valid")
                 #Update current location values.
                 curr_x_pos = prop_x
@@ -186,4 +183,8 @@ def pacman(input_file):
        #Default return values if an error occurred.
        print("-1, -1, 0")
 
+
+#Beginning of program
+#Read the file name from the command prompt.
+input_file = sys.argv[1]
 pacman(input_file)
